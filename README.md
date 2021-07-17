@@ -65,6 +65,7 @@ script, e.g., to capture the traffic from the `eth1` interface:
 
 * Sidero
   * `clusterctl config repositories`
+  * `kubectl get crd servers.metal.sidero.dev -o yaml`
   * `kubectl get clusters`
   * `kubectl get servers`
   * `kubectl get serverclasses`
