@@ -38,6 +38,8 @@ kubectl get talosconfig \
 first_control_plane_ip="$(cat /vagrant/shared/machines.json | jq -r '.[] | select(.role == "controlplane") | .ip' | head -1)"
 talosctl --talosconfig example-talosconfig.yaml config endpoints $first_control_plane_ip
 talosctl --talosconfig example-talosconfig.yaml config nodes $first_control_plane_ip
+# NB the following will only work after the example cluster has a working
+#    control plane (e.g. after the cp1 node is ready).
 talosctl --talosconfig example-talosconfig.yaml kubeconfig example-kubeconfig.yaml
 cp example-*.yaml /vagrant/shared
 kubectl --kubeconfig example-kubeconfig.yaml get nodes -o wide
