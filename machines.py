@@ -89,7 +89,7 @@ def save_sidero_machines():
             },
             'spec': {
                 'selector': {
-                    'matchLabel': {
+                    'matchLabels': {
                         'role': role,
                     },
                 },
