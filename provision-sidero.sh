@@ -16,6 +16,7 @@ talos_image="ghcr.io/talos-systems/talos:v$talos_version"
 #
 # install the sidero local "cluster".
 # see https://www.sidero.dev/docs/v0.3/getting-started/prereq-kubernetes/
+# NB sidero host ports: 69 (TFTP) and 80 (HTTP).
 
 title 'Creating the sidero local "cluster"'
 time talosctl cluster create \
@@ -31,10 +32,10 @@ time talosctl cluster create \
     --workers 0 \
     --config-patch '[{"op": "add", "path": "/cluster/allowSchedulingOnMasters", "value": true}]'
 
-title 'Downloading Kubernetes config to ~/.kube/config'
+title 'Configuring talosctl'
 talosctl config endpoints $control_plane_ip
 talosctl config nodes $control_plane_ip
-talosctl kubeconfig
+talosctl version
 install -d -m 700 -o vagrant -g vagrant /home/vagrant/.kube
 install -m 600 -o vagrant -g vagrant ~/.kube/config /home/vagrant/.kube/config
 cp ~/.kube/config /vagrant/shared/kubeconfig
