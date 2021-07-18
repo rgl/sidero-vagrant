@@ -80,6 +80,7 @@ Vagrant.configure('2') do |config|
     config.vm.provision :shell, path: 'provision-machines.sh'
     config.vm.provision :shell, path: 'provision-example-cluster.sh', args: [CONFIG_CAPI_BOOTSTRAP_TALOS_VERSION, CONFIG_TALOS_VERSION, CONFIG_KUBERNETES_VERSION]
     config.vm.provision :shell, inline: 'docker start sidero-master-1', run: 'always', name: 'start sidero'
+    config.vm.provision :shell, path: 'summary.sh', run: 'always'
   end
 
   virtual_machines.each do |name, arch, firmware, ip, uuid, mac, bmc_ip, bmc_port, bmc_qmp_port|
