@@ -1,5 +1,7 @@
 This is a [Vagrant](https://www.vagrantup.com/) Environment for a playing with [Sidero](https://www.sidero.dev).
 
+For playing with [Talos](https://www.talos.dev) see the [rgl/talos-vagrant](https://github.com/rgl/talos-vagrant) repository.
+
 # Usage (Ubuntu 20.04)
 
 Install docker, vagrant, vagrant-libvirt, and the [Ubuntu Base Box](https://github.com/rgl/ubuntu-vagrant).
