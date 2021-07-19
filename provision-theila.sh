@@ -21,6 +21,6 @@ docker run -d \
     --restart=unless-stopped \
     --name theila \
     -p 8080:8080/tcp \
-    -v "$HOME/.kube/config:/kubeconfig:ro" \
-    -e KUBECONFIG=/kubeconfig \
+    -v "$HOME/.talos:/root/.talos:ro" \
+    -v "$HOME/.kube:/root/.kube:ro" \
     "$theila_image"
