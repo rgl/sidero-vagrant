@@ -1,10 +1,10 @@
 CONFIG_DNS_DOMAIN = 'sidero.test'
 CONFIG_CAPI_VERSION = '0.3.19'
-CONFIG_CAPI_BOOTSTRAP_TALOS_VERSION = '0.2.0'       # see https://github.com/talos-systems/cluster-api-bootstrap-provider-talos/releases
-CONFIG_CAPI_CONTROL_PLANE_TALOS_VERSION = '0.1.0'   # see https://github.com/talos-systems/cluster-api-control-plane-provider-talos/releases
-CONFIG_CAPI_INFRASTRUCTURE_SIDERO_VERSION = '0.3.0' # see https://github.com/talos-systems/sidero/releases
-CONFIG_TALOS_VERSION = '0.11.2'                     # see https://github.com/talos-systems/talos/releases
-CONFIG_THEILA_TAG = 'v0.1.0-alpha.1'                # see https://github.com/talos-systems/theila/releases
+CONFIG_CAPI_BOOTSTRAP_PROVIDER = 'talos:v0.2.0'       # see https://github.com/talos-systems/cluster-api-bootstrap-provider-talos/releases
+CONFIG_CAPI_CONTROL_PLANE_PROVIDER = 'talos:v0.1.0'   # see https://github.com/talos-systems/cluster-api-control-plane-provider-talos/releases
+CONFIG_CAPI_INFRASTRUCTURE_PROVIDER = 'sidero:v0.3.0' # see https://github.com/talos-systems/sidero/releases
+CONFIG_TALOS_VERSION = '0.11.2'                       # see https://github.com/talos-systems/talos/releases
+CONFIG_THEILA_TAG = 'v0.1.0-alpha.1'                  # see https://github.com/talos-systems/theila/releases
 CONFIG_KUBERNETES_VERSION = '1.21.3'
 CONFIG_PANDORA_BRIDGE_NAME = nil
 CONFIG_PANDORA_HOST_IP = '10.10.0.1'
@@ -18,24 +18,7 @@ CONFIG_PANDORA_HOST_IP = '10.3.0.1'
 CONFIG_PANDORA_IP = '10.3.0.2'
 CONFIG_PANDORA_DHCP_RANGE = '10.3.0.100,10.3.0.200,10m'
 
-require 'open3'
-
-def virtual_machines
-  configure_virtual_machines
-  machines = JSON.load(File.read('shared/machines.json')).select{|m| m['type'] == 'virtual'}
-  machines.each_with_index.map do |m, i|
-    [m['name'], m['arch'], m['firmware'], m['ip'], m['uuid'], m['mac'], m['bmcIp'], m['bmcPort'], m['bmcQmpPort']]
-  end
-end
-
-def configure_virtual_machines
-  stdout, stderr, status = Open3.capture3('python3', 'machines.py', 'get-machines-json')
-  if status.exitstatus != 0
-    raise "failed to run python3 machines.py get-machines-json. status=#{status.exitstatus} stdout=#{stdout} stderr=#{stderr}"
-  end
-  FileUtils.mkdir_p 'shared'
-  File.write('shared/machines.json', stdout)
-end
+require './lib.rb'
 
 Vagrant.configure('2') do |config|
   config.vm.box = 'ubuntu-20.04-amd64'
@@ -75,10 +58,10 @@ Vagrant.configure('2') do |config|
     config.vm.provision :shell, path: 'provision-kubectl.sh', args: [CONFIG_KUBERNETES_VERSION]
     config.vm.provision :shell, path: 'provision-clusterctl.sh', args: [CONFIG_CAPI_VERSION]
     config.vm.provision :shell, path: 'provision-talosctl.sh', args: [CONFIG_TALOS_VERSION]
-    config.vm.provision :shell, path: 'provision-sidero.sh', args: [CONFIG_PANDORA_IP, CONFIG_CAPI_VERSION, CONFIG_CAPI_BOOTSTRAP_TALOS_VERSION, CONFIG_CAPI_CONTROL_PLANE_TALOS_VERSION, CONFIG_CAPI_INFRASTRUCTURE_SIDERO_VERSION, CONFIG_TALOS_VERSION, CONFIG_KUBERNETES_VERSION]
+    config.vm.provision :shell, path: 'provision-sidero.sh', args: [CONFIG_PANDORA_IP, CONFIG_CAPI_VERSION, CONFIG_CAPI_BOOTSTRAP_PROVIDER, CONFIG_CAPI_CONTROL_PLANE_PROVIDER, CONFIG_CAPI_INFRASTRUCTURE_PROVIDER, CONFIG_TALOS_VERSION, CONFIG_KUBERNETES_VERSION]
     config.vm.provision :shell, path: 'provision-theila.sh', args: [CONFIG_THEILA_TAG]
     config.vm.provision :shell, path: 'provision-machines.sh'
-    config.vm.provision :shell, path: 'provision-example-cluster.sh', args: [CONFIG_CAPI_BOOTSTRAP_TALOS_VERSION, CONFIG_TALOS_VERSION, CONFIG_KUBERNETES_VERSION]
+    config.vm.provision :shell, path: 'provision-example-cluster.sh', args: [CONFIG_CAPI_INFRASTRUCTURE_PROVIDER, CONFIG_TALOS_VERSION, CONFIG_KUBERNETES_VERSION]
     config.vm.provision :shell, inline: 'docker start sidero-master-1', run: 'always', name: 'start sidero'
     config.vm.provision :shell, path: 'summary.sh', run: 'always'
   end

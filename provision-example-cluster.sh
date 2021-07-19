@@ -2,7 +2,7 @@
 source /vagrant/lib.sh
 
 
-capi_infrastructure_sidero_version="${1:-0.3.0}"; shift || true
+capi_infrastructure_provider="${1:-sidero:v0.3.0}"; shift || true
 talos_version="${1:-0.11.2}"; shift || true
 kubernetes_version="${1:-1.21.3}"; shift || true
 
@@ -22,7 +22,7 @@ CONTROL_PLANE_SERVERCLASS='controlplane' \
 WORKER_SERVERCLASS='worker' \
     clusterctl config cluster \
         example \
-        --infrastructure "sidero:v$capi_infrastructure_sidero_version" \
+        --infrastructure "$capi_infrastructure_provider" \
         >example-cluster.yaml
 yq --inplace eval "select(.kind == \"TalosControlPlane\").spec.replicas = $control_plane_replicas" example-cluster.yaml
 yq --inplace eval "select(.kind == \"MachineDeployment\").spec.replicas = $worker_replicas" example-cluster.yaml

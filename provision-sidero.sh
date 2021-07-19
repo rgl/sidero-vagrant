@@ -4,9 +4,9 @@ source /vagrant/lib.sh
 
 control_plane_ip="${1:-10.10.0.2}"; shift || true
 capi_version="${1:-0.3.19}"; shift || true
-capi_bootstrap_talos_version="${1:-0.11.2}"; shift || true
-capi_control_plane_talos_version="${1:-0.11.2}"; shift || true
-capi_infrastructure_sidero_version="${1:-0.3.0}"; shift || true
+capi_boostrap_provider="${1:-talos:v0.2.0}"; shift || true
+capi_control_plane_provider="${1:-talos:v0.1.0}"; shift || true
+capi_infrastructure_provider="${1:-sidero:v0.3.0}"; shift || true
 talos_version="${1:-0.11.2}"; shift || true
 kubernetes_version="${1:-1.21.3}"; shift || true
 
@@ -62,9 +62,9 @@ export SIDERO_CONTROLLER_MANAGER_HOST_NETWORK=true
 export SIDERO_CONTROLLER_MANAGER_API_ENDPOINT=$control_plane_ip
 export SIDERO_CONTROLLER_MANAGER_API_PORT=80 # NB provision-dnsmasq.sh expects port 80.
 time clusterctl init \
-    --bootstrap "talos:v$capi_bootstrap_talos_version" \
-    --control-plane "talos:v$capi_control_plane_talos_version" \
-    --infrastructure "sidero:v$capi_infrastructure_sidero_version" \
+    --bootstrap "$capi_boostrap_provider" \
+    --control-plane "$capi_control_plane_provider" \
+    --infrastructure "$capi_infrastructure_provider" \
     --core "cluster-api:v$capi_version"
 
 title 'Waiting for sidero to be ready'
