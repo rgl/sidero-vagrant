@@ -3,7 +3,7 @@ source /vagrant/lib.sh
 
 
 capi_infrastructure_provider="${1:-sidero:v0.4.0-alpha.0}"; shift || true
-talos_version="${1:-0.11.2}"; shift || true
+talos_version="${1:-0.11.3}"; shift || true
 kubernetes_version="${1:-1.21.3}"; shift || true
 
 # NB we use the first control plane machine as the bootstrap one.
