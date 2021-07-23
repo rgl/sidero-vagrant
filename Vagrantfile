@@ -1,11 +1,13 @@
 CONFIG_DNS_DOMAIN = 'sidero.test'
 CONFIG_CAPI_VERSION = '0.3.19'
-CONFIG_CAPI_BOOTSTRAP_PROVIDER = 'talos:v0.2.0'       # see https://github.com/talos-systems/cluster-api-bootstrap-provider-talos/releases
-CONFIG_CAPI_CONTROL_PLANE_PROVIDER = 'talos:v0.1.0'   # see https://github.com/talos-systems/cluster-api-control-plane-provider-talos/releases
-CONFIG_CAPI_INFRASTRUCTURE_PROVIDER = 'sidero:v0.3.0' # see https://github.com/talos-systems/sidero/releases
-CONFIG_TALOS_VERSION = '0.11.2'                       # see https://github.com/talos-systems/talos/releases
-CONFIG_THEILA_TAG = 'v0.1.0-alpha.1'                  # see https://github.com/talos-systems/theila/releases
+CONFIG_CAPI_BOOTSTRAP_PROVIDER = 'talos:v0.2.0'                 # see https://github.com/talos-systems/cluster-api-bootstrap-provider-talos/releases
+CONFIG_CAPI_CONTROL_PLANE_PROVIDER = 'talos:v0.1.1'             # see https://github.com/talos-systems/cluster-api-control-plane-provider-talos/releases
+CONFIG_CAPI_INFRASTRUCTURE_PROVIDER = 'sidero:v0.4.0-alpha.0'   # see https://github.com/talos-systems/sidero/releases
+CONFIG_TALOS_VERSION = '0.11.2'                                 # see https://github.com/talos-systems/talos/releases
+CONFIG_THEILA_TAG = 'v0.1.0-alpha.1'                            # see https://github.com/talos-systems/theila/releases
 CONFIG_KUBERNETES_VERSION = '1.21.3'
+
+# connect to the internal virtual network.
 CONFIG_PANDORA_BRIDGE_NAME = nil
 CONFIG_PANDORA_HOST_IP = '10.10.0.1'
 CONFIG_PANDORA_IP = '10.10.0.2'
@@ -127,6 +129,16 @@ Vagrant.configure('2') do |config|
         lv.qemuargs :value => '-qmp'
         lv.qemuargs :value => "tcp:#{bmc_ip}:#{bmc_qmp_port},server,nowait"
         config.vm.synced_folder '.', '/vagrant', disabled: true
+        config.trigger.after :up do |trigger|
+          trigger.ruby do |env, machine|
+            vbmc_up(machine, bmc_ip, bmc_port)
+          end
+        end
+        config.trigger.after :destroy do |trigger|
+          trigger.ruby do |env, machine|
+            vbmc_destroy(machine)
+          end
+        end
       end
     end
   end

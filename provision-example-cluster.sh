@@ -2,7 +2,7 @@
 source /vagrant/lib.sh
 
 
-capi_infrastructure_provider="${1:-sidero:v0.3.0}"; shift || true
+capi_infrastructure_provider="${1:-sidero:v0.4.0-alpha.0}"; shift || true
 talos_version="${1:-0.11.2}"; shift || true
 kubernetes_version="${1:-1.21.3}"; shift || true
 

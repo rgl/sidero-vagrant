@@ -77,6 +77,13 @@ def save_sidero_machines():
                 ],
             },
         }
+        if m['bmcType'] == 'ipmi':
+            config['spec']['bmc'] = {
+                'endpoint': m['bmcIp'],
+                'port': m['bmcPort'],
+                'user': 'admin',
+                'pass': 'password',
+            }
         logging.info(f'Adding the {m["name"]} Server...')
         subprocess.run(['kubectl', 'apply', '-f', '-'], input=yaml.dump(config, encoding='utf-8'), check=True)
     # add ServerClasses.
