@@ -47,6 +47,15 @@ cp example-*.yaml /vagrant/shared
 kubectl --kubeconfig example-kubeconfig.yaml get nodes -o wide
 ```
 
+Access kubernetes with k9s:
+
+```bash
+vagrant ssh pandora
+sudo -i
+k9s                                       # management cluster.
+k9s --kubeconfig example-kubeconfig.yaml  # example cluster.
+```
+
 ## Network Packet Capture
 
 You can easily capture and see traffic from the host with the `wireshark.sh`

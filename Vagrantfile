@@ -5,7 +5,8 @@ CONFIG_CAPI_CONTROL_PLANE_PROVIDER = 'talos:v0.1.1'             # see https://gi
 CONFIG_CAPI_INFRASTRUCTURE_PROVIDER = 'sidero:v0.4.0-alpha.0'   # see https://github.com/talos-systems/sidero/releases
 CONFIG_TALOS_VERSION = '0.11.3'                                 # see https://github.com/talos-systems/talos/releases
 CONFIG_THEILA_TAG = 'v0.1.0-alpha.2'                            # see https://github.com/talos-systems/theila/releases
-CONFIG_KUBERNETES_VERSION = '1.21.3'
+CONFIG_KUBERNETES_VERSION = '1.21.3'                            # see https://github.com/talos-systems/talos/releases (see the talos release notes)
+CONFIG_K9S_TAG = 'v0.24.14'                                     # see https://github.com/derailed/k9s/releases
 
 # connect to the internal virtual network.
 CONFIG_PANDORA_BRIDGE_NAME = nil
@@ -62,6 +63,7 @@ Vagrant.configure('2') do |config|
     config.vm.provision :shell, path: 'provision-talosctl.sh', args: [CONFIG_TALOS_VERSION]
     config.vm.provision :shell, path: 'provision-sidero.sh', args: [CONFIG_PANDORA_IP, CONFIG_CAPI_VERSION, CONFIG_CAPI_BOOTSTRAP_PROVIDER, CONFIG_CAPI_CONTROL_PLANE_PROVIDER, CONFIG_CAPI_INFRASTRUCTURE_PROVIDER, CONFIG_TALOS_VERSION, CONFIG_KUBERNETES_VERSION]
     config.vm.provision :shell, path: 'provision-theila.sh', args: [CONFIG_THEILA_TAG]
+    config.vm.provision :shell, path: 'provision-k9s.sh', args: [CONFIG_K9S_TAG]
     config.vm.provision :shell, path: 'provision-machines.sh'
     config.vm.provision :shell, path: 'provision-example-cluster.sh', args: [CONFIG_CAPI_INFRASTRUCTURE_PROVIDER, CONFIG_TALOS_VERSION, CONFIG_KUBERNETES_VERSION]
     config.vm.provision :shell, inline: 'docker start sidero-master-1', run: 'always', name: 'start sidero'
