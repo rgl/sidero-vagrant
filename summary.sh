@@ -22,7 +22,8 @@ from tabulate import tabulate
 headers = ('service', 'address', 'username', 'password')
 
 def info():
-    yield ('theila', 'http://$host_ip_address:8080',  None, None)
+    yield ('theila',        'http://$host_ip_address:8080',   None, None)
+    yield ('k8s dashboard', 'https://$host_ip_address:30443', None, 'shared/admin-token.txt')
 
 print(tabulate(info(), headers=headers))
 EOF

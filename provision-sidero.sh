@@ -27,7 +27,7 @@ time talosctl cluster create \
     --endpoint $control_plane_ip \
     --nameservers $control_plane_ip \
     --docker-host-ip $control_plane_ip \
-    --exposed-ports 69:69/udp,80:8081/tcp \
+    --exposed-ports 69:69/udp,80:8081/tcp,30443:30443/tcp \
     --masters 1 \
     --workers 0 \
     --config-patch '[{"op": "add", "path": "/cluster/allowSchedulingOnMasters", "value": true}]'
