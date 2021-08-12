@@ -63,6 +63,19 @@ EOF
 
 
 #
+# add the GITHUB_USERNAME/GITHUB_TOKEN to netrc to bump the rate-limit.
+
+if [ -v GITHUB_USERNAME -a -v GITHUB_TOKEN ]; then
+    install -m 600 /dev/null ~/.netrc
+    cat >>~/.netrc <<EOF
+machine github.com
+login $GITHUB_USERNAME
+password $GITHUB_TOKEN
+EOF
+fi
+
+
+#
 # install git.
 
 apt-get install -y git

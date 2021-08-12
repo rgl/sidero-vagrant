@@ -8,6 +8,10 @@ Install docker, vagrant, vagrant-libvirt, and the [Ubuntu Base Box](https://gith
 
 If you want to connect to the external physical network, you must configure your host network as described in [rgl/ansible-collection-tp-link-easy-smart-switch](https://github.com/rgl/ansible-collection-tp-link-easy-smart-switch#take-ownership-procedure) (e.g. have the `br-rpi` linux bridge) and set `CONFIG_PANDORA_BRIDGE_NAME` in the `Vagrantfile`.
 
+This environment sometimes hits the [GitHub rate limits (at the time of writing, these were 60 unauthenticated requests per hour)](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting), as such, you might want to export the `GITHUB_USERNAME/GITHUB_TOKEN` environment variables before running `vagrant` to have an higher (5000 requests per hour).
+
+**NB** This token is also saved in the `.netrc` file inside the VMs.
+
 Bring up the `pandora` virtual machine:
 
 ```bash
