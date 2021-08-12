@@ -2,7 +2,7 @@
 source /vagrant/lib.sh
 
 
-k9s_tag="${1:-v0.23.10}"; shift
+k9s_tag="${1:-v0.24.15}"; shift || true # see https://github.com/derailed/k9s/releases
 
 
 title "Installing k9s $k9s_tag"

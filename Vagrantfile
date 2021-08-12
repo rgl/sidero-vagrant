@@ -7,7 +7,7 @@ CONFIG_TALOS_VERSION = '0.11.3'                                 # see https://gi
 CONFIG_THEILA_TAG = 'v0.1.0-alpha.2'                            # see https://github.com/talos-systems/theila/releases
 CONFIG_KUBERNETES_VERSION = '1.21.3'                            # see https://github.com/talos-systems/talos/releases (see the talos release notes)
 CONFIG_KUBERNETES_DASHBOARD_TAG = 'v2.3.1'                      # see https://github.com/kubernetes/dashboard/releases
-CONFIG_K9S_TAG = 'v0.24.14'                                     # see https://github.com/derailed/k9s/releases
+CONFIG_K9S_TAG = 'v0.24.15'                                     # see https://github.com/derailed/k9s/releases
 
 # connect to the internal virtual network.
 CONFIG_PANDORA_BRIDGE_NAME = nil
