@@ -3,10 +3,10 @@ source /vagrant/lib.sh
 
 
 control_plane_ip="${1:-10.10.0.2}"; shift || true
-capi_version="${1:-0.3.19}"; shift || true
+capi_version="${1:-0.3.20}"; shift || true
 capi_boostrap_provider="${1:-talos:v0.2.0}"; shift || true
 capi_control_plane_provider="${1:-talos:v0.1.1}"; shift || true
-capi_infrastructure_provider="${1:-sidero:v0.4.0-alpha.0}"; shift || true
+capi_infrastructure_provider="${1:-sidero:v0.4.0-alpha.1}"; shift || true
 talos_version="${1:-0.11.5}"; shift || true
 kubernetes_version="${1:-1.21.3}"; shift || true
 
@@ -53,9 +53,9 @@ cp ~/.talos/config /vagrant/shared/talosconfig
 # see https://www.sidero.dev/docs/v0.3/getting-started/install-clusterapi/
 # see https://www.sidero.dev/docs/v0.3/overview/installation/
 # see https://www.sidero.dev/docs/v0.3/resource-configuration/environments/
-# see https://github.com/talos-systems/sidero/releases/download/v0.4.0-alpha.0/metadata.yaml
-# see https://github.com/talos-systems/sidero/releases/download/v0.4.0-alpha.0/cluster-template.yaml
-# see https://github.com/talos-systems/sidero/releases/download/v0.4.0-alpha.0/infrastructure-components.yaml
+# see https://github.com/talos-systems/sidero/releases/download/v0.4.0-alpha.1/metadata.yaml
+# see https://github.com/talos-systems/sidero/releases/download/v0.4.0-alpha.1/cluster-template.yaml
+# see https://github.com/talos-systems/sidero/releases/download/v0.4.0-alpha.1/infrastructure-components.yaml
 
 title 'Installing sidero'
 export SIDERO_CONTROLLER_MANAGER_HOST_NETWORK=true

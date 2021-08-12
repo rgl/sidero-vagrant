@@ -2,7 +2,7 @@
 source /vagrant/lib.sh
 
 
-clusterapi_version="${1:-0.3.19}"; shift || true
+clusterapi_version="${1:-0.3.20}"; shift || true
 
 
 title "Installing clusterctl $clusterapi_version"
