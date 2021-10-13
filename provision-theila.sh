@@ -2,7 +2,7 @@
 source /vagrant/lib.sh
 
 
-theila_tag="${1:-v0.1.0}"; shift || true
+theila_tag="${1:-v0.1.1}"; shift || true
 
 theila_image="ghcr.io/talos-systems/theila:$theila_tag"
 
