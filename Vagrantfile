@@ -1,8 +1,8 @@
 CONFIG_DNS_DOMAIN = 'sidero.test'
-CONFIG_CAPI_VERSION = '0.3.23'                                  # see https://github.com/kubernetes-sigs/cluster-api/releases (see the sigs.k8s.io/cluster-api dependency in the sidero release notes)
-CONFIG_CAPI_BOOTSTRAP_PROVIDER = 'talos:v0.3.2'                 # see https://github.com/talos-systems/cluster-api-bootstrap-provider-talos/releases
-CONFIG_CAPI_CONTROL_PLANE_PROVIDER = 'talos:v0.2.0'             # see https://github.com/talos-systems/cluster-api-control-plane-provider-talos/releases
-CONFIG_CAPI_INFRASTRUCTURE_PROVIDER = 'sidero:v0.4.0-alpha.1'   # see https://github.com/talos-systems/sidero/releases
+CONFIG_CAPI_VERSION = '0.4.3'                                   # see https://github.com/kubernetes-sigs/cluster-api/releases (see the sigs.k8s.io/cluster-api dependency in the sidero release notes)
+CONFIG_CAPI_BOOTSTRAP_PROVIDER = 'talos:v0.4.1'                 # see https://github.com/talos-systems/cluster-api-bootstrap-provider-talos/releases
+CONFIG_CAPI_CONTROL_PLANE_PROVIDER = 'talos:v0.3.0'             # see https://github.com/talos-systems/cluster-api-control-plane-provider-talos/releases
+CONFIG_CAPI_INFRASTRUCTURE_PROVIDER = 'sidero:v0.4.0'           # see https://github.com/talos-systems/sidero/releases
 CONFIG_TALOS_VERSION = '0.13.0'                                 # see https://github.com/talos-systems/talos/releases
 CONFIG_THEILA_TAG = 'v0.1.1'                                    # see https://github.com/talos-systems/theila/releases
 CONFIG_KUBERNETES_VERSION = '1.21.5'                            # see https://github.com/talos-systems/talos/releases (see the talos release notes)
@@ -67,13 +67,13 @@ Vagrant.configure('2') do |config|
     config.vm.provision :shell, path: 'provision-iptables.sh', env: PROVISION_ENV
     config.vm.provision :shell, path: 'provision-docker.sh', env: PROVISION_ENV
     config.vm.provision :shell, path: 'provision-dnsmasq.sh', args: [CONFIG_PANDORA_IP, CONFIG_PANDORA_DHCP_RANGE], env: PROVISION_ENV
+    config.vm.provision :shell, path: 'provision-k9s.sh', args: [CONFIG_K9S_TAG], env: PROVISION_ENV
     config.vm.provision :shell, path: 'provision-kubectl.sh', args: [CONFIG_KUBERNETES_VERSION], env: PROVISION_ENV
     config.vm.provision :shell, path: 'provision-clusterctl.sh', args: [CONFIG_CAPI_VERSION], env: PROVISION_ENV
     config.vm.provision :shell, path: 'provision-talosctl.sh', args: [CONFIG_TALOS_VERSION], env: PROVISION_ENV
     config.vm.provision :shell, path: 'provision-sidero.sh', args: [CONFIG_PANDORA_IP, CONFIG_CAPI_VERSION, CONFIG_CAPI_BOOTSTRAP_PROVIDER, CONFIG_CAPI_CONTROL_PLANE_PROVIDER, CONFIG_CAPI_INFRASTRUCTURE_PROVIDER, CONFIG_TALOS_VERSION, CONFIG_KUBERNETES_VERSION], env: PROVISION_ENV
     config.vm.provision :shell, path: 'provision-theila.sh', args: [CONFIG_THEILA_TAG], env: PROVISION_ENV
     config.vm.provision :shell, path: 'provision-k8s-dashboard.sh', args: [CONFIG_KUBERNETES_DASHBOARD_TAG], env: PROVISION_ENV
-    config.vm.provision :shell, path: 'provision-k9s.sh', args: [CONFIG_K9S_TAG], env: PROVISION_ENV
     config.vm.provision :shell, path: 'provision-machines.sh', env: PROVISION_ENV
     config.vm.provision :shell, path: 'provision-example-cluster.sh', args: [CONFIG_CAPI_INFRASTRUCTURE_PROVIDER, CONFIG_TALOS_VERSION, CONFIG_KUBERNETES_VERSION], env: PROVISION_ENV
     config.vm.provision :shell, inline: 'docker start sidero-master-1', run: 'always', name: 'start sidero', env: PROVISION_ENV

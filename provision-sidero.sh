@@ -3,10 +3,10 @@ source /vagrant/lib.sh
 
 
 control_plane_ip="${1:-10.10.0.2}"; shift || true
-capi_version="${1:-0.3.23}"; shift || true
-capi_boostrap_provider="${1:-talos:v0.3.2}"; shift || true
-capi_control_plane_provider="${1:-talos:v0.2.0}"; shift || true
-capi_infrastructure_provider="${1:-sidero:v0.4.0-alpha.1}"; shift || true
+capi_version="${1:-0.4.3}"; shift || true
+capi_boostrap_provider="${1:-talos:v0.4.1}"; shift || true
+capi_control_plane_provider="${1:-talos:v0.3.0}"; shift || true
+capi_infrastructure_provider="${1:-sidero:v0.4.0}"; shift || true
 talos_version="${1:-0.13.0}"; shift || true
 kubernetes_version="${1:-1.21.5}"; shift || true
 
@@ -16,7 +16,10 @@ talos_image="ghcr.io/talos-systems/talos:v$talos_version"
 #
 # install the sidero local "cluster".
 # see https://www.sidero.dev/docs/v0.3/getting-started/prereq-kubernetes/
-# NB sidero host ports: 69 (TFTP) and 80 (HTTP).
+# NB host ports:
+#       sidero: 69 (TFTP)
+#       sidero: 80 (HTTP)
+#       k8s-dashboard: 30443 (HTTPS)
 
 title 'Creating the sidero local "cluster"'
 time talosctl cluster create \
@@ -27,7 +30,7 @@ time talosctl cluster create \
     --endpoint $control_plane_ip \
     --nameservers $control_plane_ip \
     --docker-host-ip $control_plane_ip \
-    --exposed-ports 69:69/udp,80:8081/tcp,30443:30443/tcp \
+    --exposed-ports 69:69/udp,80:80/tcp,30443:30443/tcp \
     --masters 1 \
     --workers 0 \
     --config-patch '[{"op": "add", "path": "/cluster/allowSchedulingOnMasters", "value": true}]'
@@ -53,9 +56,9 @@ cp ~/.talos/config /vagrant/shared/talosconfig
 # see https://www.sidero.dev/docs/v0.3/getting-started/install-clusterapi/
 # see https://www.sidero.dev/docs/v0.3/overview/installation/
 # see https://www.sidero.dev/docs/v0.3/resource-configuration/environments/
-# see https://github.com/talos-systems/sidero/releases/download/v0.4.0-alpha.1/metadata.yaml
-# see https://github.com/talos-systems/sidero/releases/download/v0.4.0-alpha.1/cluster-template.yaml
-# see https://github.com/talos-systems/sidero/releases/download/v0.4.0-alpha.1/infrastructure-components.yaml
+# see https://github.com/talos-systems/sidero/releases/download/v0.4.0/metadata.yaml
+# see https://github.com/talos-systems/sidero/releases/download/v0.4.0/cluster-template.yaml
+# see https://github.com/talos-systems/sidero/releases/download/v0.4.0/infrastructure-components.yaml
 
 title 'Installing sidero'
 export SIDERO_CONTROLLER_MANAGER_HOST_NETWORK=true
