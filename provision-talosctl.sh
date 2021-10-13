@@ -3,7 +3,7 @@ source /vagrant/lib.sh
 
 
 # see https://github.com/talos-systems/talos/releases
-talos_version="${1:-0.11.5}"; shift || true
+talos_version="${1:-0.13.0}"; shift || true
 
 
 title "Installing talosctl $talos_version"
