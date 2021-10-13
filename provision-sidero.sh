@@ -3,7 +3,7 @@ source /vagrant/lib.sh
 
 
 control_plane_ip="${1:-10.10.0.2}"; shift || true
-capi_version="${1:-0.3.20}"; shift || true
+capi_version="${1:-0.3.23}"; shift || true
 capi_boostrap_provider="${1:-talos:v0.2.0}"; shift || true
 capi_control_plane_provider="${1:-talos:v0.1.1}"; shift || true
 capi_infrastructure_provider="${1:-sidero:v0.4.0-alpha.1}"; shift || true
