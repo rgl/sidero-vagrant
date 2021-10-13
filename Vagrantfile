@@ -1,7 +1,7 @@
 CONFIG_DNS_DOMAIN = 'sidero.test'
 CONFIG_CAPI_VERSION = '0.3.23'                                  # see https://github.com/kubernetes-sigs/cluster-api/releases (see the sigs.k8s.io/cluster-api dependency in the sidero release notes)
-CONFIG_CAPI_BOOTSTRAP_PROVIDER = 'talos:v0.2.0'                 # see https://github.com/talos-systems/cluster-api-bootstrap-provider-talos/releases
-CONFIG_CAPI_CONTROL_PLANE_PROVIDER = 'talos:v0.1.1'             # see https://github.com/talos-systems/cluster-api-control-plane-provider-talos/releases
+CONFIG_CAPI_BOOTSTRAP_PROVIDER = 'talos:v0.3.2'                 # see https://github.com/talos-systems/cluster-api-bootstrap-provider-talos/releases
+CONFIG_CAPI_CONTROL_PLANE_PROVIDER = 'talos:v0.2.0'             # see https://github.com/talos-systems/cluster-api-control-plane-provider-talos/releases
 CONFIG_CAPI_INFRASTRUCTURE_PROVIDER = 'sidero:v0.4.0-alpha.1'   # see https://github.com/talos-systems/sidero/releases
 CONFIG_TALOS_VERSION = '0.13.0'                                 # see https://github.com/talos-systems/talos/releases
 CONFIG_THEILA_TAG = 'v0.1.1'                                    # see https://github.com/talos-systems/theila/releases
