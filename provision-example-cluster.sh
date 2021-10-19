@@ -4,7 +4,7 @@ source /vagrant/lib.sh
 
 capi_infrastructure_provider="${1:-sidero:v0.4.0}"; shift || true
 talos_version="${1:-0.13.0}"; shift || true
-kubernetes_version="${1:-1.21.5}"; shift || true
+kubernetes_version="${1:-1.22.2}"; shift || true
 
 # NB we use the first control plane machine as the bootstrap one.
 control_plane_ip="$(cat /vagrant/shared/machines.json | jq -r '.[] | select(.role == "controlplane") | .ip' | head -1)"

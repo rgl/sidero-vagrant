@@ -8,7 +8,7 @@ capi_boostrap_provider="${1:-talos:v0.4.1}"; shift || true
 capi_control_plane_provider="${1:-talos:v0.3.0}"; shift || true
 capi_infrastructure_provider="${1:-sidero:v0.4.0}"; shift || true
 talos_version="${1:-0.13.0}"; shift || true
-kubernetes_version="${1:-1.21.5}"; shift || true
+kubernetes_version="${1:-1.22.2}"; shift || true
 
 talos_image="ghcr.io/talos-systems/talos:v$talos_version"
 
