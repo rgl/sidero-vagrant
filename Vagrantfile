@@ -6,7 +6,7 @@ CONFIG_CAPI_INFRASTRUCTURE_PROVIDER = 'sidero:v0.4.0'           # see https://gi
 CONFIG_TALOS_VERSION = '0.13.0'                                 # see https://github.com/talos-systems/talos/releases
 CONFIG_THEILA_TAG = 'v0.1.1'                                    # see https://github.com/talos-systems/theila/releases
 CONFIG_KUBERNETES_VERSION = '1.22.2'                            # see https://github.com/talos-systems/talos/releases (see the talos release notes)
-CONFIG_KUBERNETES_DASHBOARD_TAG = 'v2.3.1'                      # see https://github.com/kubernetes/dashboard/releases
+CONFIG_KUBERNETES_DASHBOARD_TAG = 'v2.4.0'                      # see https://github.com/kubernetes/dashboard/releases
 CONFIG_K9S_TAG = 'v0.24.15'                                     # see https://github.com/derailed/k9s/releases
 
 # connect to the internal virtual network.

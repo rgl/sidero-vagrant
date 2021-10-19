@@ -2,7 +2,7 @@
 source /vagrant/lib.sh
 
 
-kubernetes_dashboard_tag="${1:-v2.3.1}"; shift || true
+kubernetes_dashboard_tag="${1:-v2.4.0}"; shift || true
 kubernetes_dashboard_url="https://raw.githubusercontent.com/kubernetes/dashboard/$kubernetes_dashboard_tag/aio/deploy/recommended.yaml"
 
 
